@@ -1,4 +1,7 @@
 import Foundation
+import PlaygroundSupport
+
+PlaygroundPage.current.needsIndefiniteExecution = true
 
 func executeTask(_ taskNumber: Int, delay: UInt32) {
     print("Task \(taskNumber) started")
@@ -10,17 +13,17 @@ func executeTasks() {
     let queue1 = DispatchQueue(label: "com.example.queue1", attributes: .concurrent)
     let queue2 = DispatchQueue(label: "com.example.queue2", attributes: .concurrent)
     let queueFinal = DispatchQueue(label: "com.example.finalQueue")
-    
+
     let group = DispatchGroup()
 
-    group.enter()
     queue1.async {
+        group.enter()
         executeTask(1, delay: 2)
         group.leave()
     }
 
-    group.enter()
     queue2.async {
+        group.enter()
         executeTask(2, delay: 3)
         group.leave()
     }
@@ -31,6 +34,4 @@ func executeTasks() {
 }
 
 executeTasks()
-
-dispatchMain()
 
